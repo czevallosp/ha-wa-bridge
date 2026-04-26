@@ -57,8 +57,14 @@ async def async_attach_trigger(
                 return
 
         # Check content if configured
+
+        contains = False
+        # Check contains_text
         if contains_text:
-            if contains_text.lower() not in body.lower():
+            for word in contains_text.lower().split():
+                if word in body.lower():
+                    contains = True
+            if not contains: 
                 return
 
         await action(
