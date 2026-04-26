@@ -59,7 +59,7 @@ async def async_attach_trigger(
         
         # Check from_number
         if "from_number" in config:
-            if data.get("from") != config["from_number"] and data.get("from") != f"{config['from_number']}@c.us":
+            if data.get("from") != config["from_number"] and data.get("from") != f"{config['from_number']}":
                  return
 
         # Check from_group
