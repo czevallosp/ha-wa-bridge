@@ -68,10 +68,14 @@ async def async_attach_trigger(
                 return
             if data.get("chatName", "").lower() != config["from_group"].lower():
                 return
-
+                
+        contains = False
         # Check contains_text
         if "contains_text" in config:
-            if config["contains_text"].lower() not in data.get("body", "").lower():
+            for word in config["contains_text"].lower().split():
+                if word in data.get("body", "").lower():
+                    contains = True
+            if not contains: 
                 return
 
         await action(event.context)
