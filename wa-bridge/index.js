@@ -35,7 +35,7 @@ if (typeof allowedNumbers === 'string') {
     // Support comma-separated env var: ALLOWED_NUMBERS="40741234567,49123456789"
     allowedNumbers = allowedNumbers.split(',').map(n => n.trim()).filter(Boolean);
 }
-const allowedNumbersSet = new Set(allowedNumbers.map(n => `${n}@c.us`));
+const allowedNumbersSet = new Set(allowedNumbers.map(n => `${n}`));
 
 // Incoming message logging level
 // Mode: 'FULL' (default) | 'COMPACT' | 'NONE'
@@ -187,7 +187,7 @@ async function resolveChatId(number, group_name, group_id) {
     // Check if chatId is a valid JID (contains @)
     if (chatId && !chatId.includes('@')) {
          // Basic format check for number (e.g. 1234567890@c.us)
-        chatId = `${chatId}@c.us`;
+        chatId = `${chatId}`;
     }
 
     return chatId;
@@ -375,7 +375,7 @@ client.on('vote_update', async vote => {
     
     // Extract purely the phone number from the JID format
     if (voter && typeof voter === 'string') {
-        voter = voter.split('@')[0];
+        //voter = voter.split('@')[0];
         if (voter.includes(':')) {
             voter = voter.split(':')[0];
         }
@@ -411,7 +411,7 @@ client.on('vote_update', async vote => {
 
     // numbers_only mode: skip group votes and votes not from allowed numbers
     if (incomingMode === 'numbers_only') {
-        if (isGroup || !allowedNumbersSet.has(`${voter}@c.us`)) {
+        if (isGroup || !allowedNumbersSet.has(`${voter}`)) {
             return;
         }
     }
@@ -425,7 +425,7 @@ client.on('vote_update', async vote => {
 
     // allowed_numbers filter: skip votes from numbers not in the list
     if (allowedNumbersSet.size > 0 && incomingMode !== 'numbers_only') {
-        if (isGroup || !allowedNumbersSet.has(`${voter}@c.us`)) {
+        if (isGroup || !allowedNumbersSet.has(`${voter}`)) {
             return;
         }
     }
