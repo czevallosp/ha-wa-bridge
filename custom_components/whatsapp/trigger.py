@@ -39,7 +39,7 @@ async def async_attach_trigger(
 
         # Check sender (from_number)
         if from_number:
-            if sender != from_number and sender != f"{from_number}@c.us":
+            if sender != from_number and sender != f"{from_number}":
                 return
 
         # Check group by ID (from_group_id) — preferred, stable identifier
