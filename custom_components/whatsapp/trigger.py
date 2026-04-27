@@ -36,6 +36,7 @@ async def async_attach_trigger(
         chat_name = data.get("chatName")
         group_id = data.get("groupId")
         is_group = data.get("isGroup", False)
+        contains_text_local = contains_text
 
         # Check sender (from_number)
         if from_number:
@@ -64,7 +65,7 @@ async def async_attach_trigger(
             for word in contains_text:
                 if word.lower() in body.lower():
                     contains = True
-                    contains_text = [word]
+                    contains_text_local = [word]
                     break
             if not contains: 
                 return
@@ -79,7 +80,7 @@ async def async_attach_trigger(
                     "from_group": chat_name,
                     "from_group_id": group_id,
                     "description": f"WhatsApp message from {chat_name if is_group else sender}",
-                    "contains_text": contains_text,
+                    "contains_text": contains_text_local,
                 }
             },
             event.context,
