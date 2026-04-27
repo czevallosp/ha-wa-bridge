@@ -77,6 +77,7 @@ async def async_attach_trigger(
                     "from_group": chat_name,
                     "from_group_id": group_id,
                     "description": f"WhatsApp message from {chat_name if is_group else sender}",
+                    "contains_text": contains_text,
                 }
             },
             event.context,
