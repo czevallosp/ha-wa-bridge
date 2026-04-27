@@ -75,6 +75,8 @@ async def async_attach_trigger(
             for word in config["contains_text"]:
                 if word.lower() in data.get("body", "").lower():
                     contains = True
+                    contains_text = [word]
+                    break
             if not contains: 
                 return
 
