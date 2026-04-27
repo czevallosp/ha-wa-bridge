@@ -15,7 +15,7 @@ TRIGGER_SCHEMA = vol.Schema(
         vol.Required(CONF_TYPE): "message_received",
         vol.Optional("from_number"): str,
         vol.Optional("from_group"): str,
-        vol.Optional("contains_text"): str,
+        vol.Optional("contains_text", default=[]): vol.All(cv.ensure_list, [cv.string]),
     }
 )
 
@@ -72,8 +72,8 @@ async def async_attach_trigger(
         contains = False
         # Check contains_text
         if "contains_text" in config:
-            for word in config["contains_text"].lower().split():
-                if word in data.get("body", "").lower():
+            for word in config["contains_text"]:
+                if word.lower() in data.get("body", "").lower():
                     contains = True
             if not contains: 
                 return
