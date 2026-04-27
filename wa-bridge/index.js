@@ -187,7 +187,7 @@ async function resolveChatId(number, group_name, group_id) {
     // Check if chatId is a valid JID (contains @)
     if (chatId && !chatId.includes('@')) {
          // Basic format check for number (e.g. 1234567890@c.us)
-        chatId = `${chatId}`;
+        chatId = `${chatId}@c.us`;
     }
 
     return chatId;
