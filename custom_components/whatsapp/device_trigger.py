@@ -45,6 +45,9 @@ async def async_attach_trigger(
 
     if "from_number" in config:
         event_config[trigger.CONF_EVENT_DATA]["from"] = config["from_number"]
+    if "contains_text" in config:
+        event_config[trigger.CONF_EVENT_DATA]["contains_text"] = config["contains_text"]
+    
 
     # For 'contains_text', we can't easily use basic event data matching if we want partial match.
     # We might need a custom trigger wrapper. 
@@ -75,7 +78,7 @@ async def async_attach_trigger(
             for word in config["contains_text"]:
                 if word.lower() in data.get("body", "").lower():
                     contains = True
-                    contains_text = [word]
+                    event.data["contains_text"] = [word]
                     break
             if not contains: 
                 return
