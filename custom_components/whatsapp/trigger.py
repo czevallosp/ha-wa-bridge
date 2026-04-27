@@ -12,7 +12,7 @@ TRIGGER_SCHEMA = cv.TRIGGER_BASE_SCHEMA.extend(
         vol.Optional("from_number"): cv.string,
         vol.Optional("from_group"): cv.string,
         vol.Optional("from_group_id"): cv.string,
-        vol.Optional("contains_text"): cv.string,
+        vol.Optional("contains_text", default=[]): vol.All(cv.ensure_list, [cv.string]),
     }
 )
 
@@ -61,8 +61,8 @@ async def async_attach_trigger(
         contains = False
         # Check contains_text
         if contains_text:
-            for word in contains_text.lower().split():
-                if word in body.lower():
+            for word in contains_text:
+                if word.lower() in body.lower():
                     contains = True
             if not contains: 
                 return
