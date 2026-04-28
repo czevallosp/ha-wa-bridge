@@ -36,7 +36,7 @@ async def async_attach_trigger(
         chat_name = data.get("chatName")
         group_id = data.get("groupId")
         is_group = data.get("isGroup", False)
-        contains_text_local = contains_text
+        contains_text_local = ""
 
         # Check sender (from_number)
         if from_number:
