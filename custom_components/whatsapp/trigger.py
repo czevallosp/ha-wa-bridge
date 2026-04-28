@@ -65,7 +65,7 @@ async def async_attach_trigger(
             for word in contains_text:
                 if word.lower() in body.lower():
                     contains = True
-                    contains_text_local = [word]
+                    contains_text_local = word
                     break
             if not contains: 
                 return
